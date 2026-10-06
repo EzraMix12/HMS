@@ -1,0 +1,20 @@
+{
+  "name": "pulseclinic-cms-lite",
+  "version": "1.0.0",
+  "description": "Lightweight multi-page Clinic Management System",
+  "main": "index.html",
+  "scripts": {
+    "dev": "python -m http.server 8000",
+    "preview": "echo 'Open index.html in your browser'"
+  },
+  "keywords": [
+    "clinic",
+    "management",
+    "healthcare",
+    "emr",
+    "patient",
+    "queue"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}

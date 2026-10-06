@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="PulseClinic - Modern Clinic Management System for patient queues, EMR, and billing">
+    <meta name="keywords" content="clinic management, healthcare, EMR, patient queue, medical billing">
+    <meta name="author" content="PulseClinic">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="PulseClinic - Modern Clinic Management System">
+    <meta property="og:description" content="Lightweight multi-page clinic management system with queue management, EMR, and billing">
+    
+    <title>PulseClinic - Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-slate-50 font-sans text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <!-- NAVIGATION BAR -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <a href="index.html" class="flex items-center space-x-3">
+                <div class="bg-sky-500 text-white p-2 rounded-xl shadow-sm">
+                    <i class="fa-solid fa-house-medical text-lg"></i>
+                </div>
+                <div>
+                    <span class="font-bold text-lg text-slate-900 tracking-tight">Pulse<span class="text-sky-500">Clinic</span></span>
+                    <span class="ml-2 text-xs bg-sky-50 text-sky-600 px-2 py-0.5 rounded-full font-medium">Multi-Page</span>
+                </div>
+            </a>
+            
+            <nav class="hidden md:flex items-center space-x-1">
+                <a href="index.html" class="px-3 py-2 rounded-lg text-sm font-medium text-sky-600 bg-sky-50">Home</a>
+                <a href="dashboard.html" class="px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-sky-600 hover:bg-slate-50">Dashboard & Queue</a>
+                <a href="registry.html" class="px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-sky-600 hover:bg-slate-50">Patient Registry</a>
+                <a href="emr.html" class="px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-sky-600 hover:bg-slate-50">Consultation (EMR)</a>
+                <a href="billing.html" class="px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-sky-600 hover:bg-slate-50">Billing & Cashier</a>
+            </nav>
+
+            <div class="flex items-center space-x-3">
+                <a href="dashboard.html" class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-lg text-sm font-medium shadow-sm transition">
+                    Launch App
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <main class="flex-grow">
+        <div class="relative bg-gradient-to-br from-slate-900 via-slate-800 to-sky-900 text-white py-28 px-4 sm:px-6 lg:px-8 text-center">
+            <div class="max-w-4xl mx-auto space-y-6">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-sky-500/20 text-sky-300 border border-sky-500/30">
+                    <i class="fa-solid fa-bolt text-[10px]"></i> Deployed on Vercel Demo
+                </span>
+                <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight">
+                    Modern Clinic Management <span class="text-sky-400">Simplified</span>
+                </h1>
+                <p class="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto font-light">
+                    Manage patient queues, electronic medical records, and cashiering across fully connected HTML pages.
+                </p>
+                <div class="pt-4 flex justify-center gap-4">
+                    <a href="dashboard.html" class="bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold px-8 py-3.5 rounded-xl shadow-lg transition flex items-center gap-2">
+                        <span>Get Started</span>
+                        <i class="fa-solid fa-arrow-right text-sm"></i>
+                    </a>
+                    <a href="registry.html" class="bg-slate-800 hover:bg-slate-700 text-white font-medium px-8 py-3.5 rounded-xl border border-slate-700 transition">
+                        View Registry
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500">
+        &copy; 2026 PulseClinic Management System.
+    </footer>
+</body>
+</html>

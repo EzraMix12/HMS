@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PulseClinic - Billing & Cashier</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-slate-50 font-sans text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <a href="index.html" class="flex items-center space-x-3">
+                <div class="bg-sky-500 text-white p-2 rounded-xl shadow-sm"><i class="fa-solid fa-house-medical text-lg"></i></div>
+                <span class="font-bold text-lg text-slate-900">Pulse<span class="text-sky-500">Clinic</span></span>
+            </a>
+            <nav class="hidden md:flex items-center space-x-1">
+                <a href="index.html" class="px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-sky-600 hover:bg-slate-50">Home</a>
+                <a href="dashboard.html" class="px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-sky-600 hover:bg-slate-50">Dashboard & Queue</a>
+                <a href="registry.html" class="px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-sky-600 hover:bg-slate-50">Patient Registry</a>
+                <a href="emr.html" class="px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-sky-600 hover:bg-slate-50">Consultation (EMR)</a>
+                <a href="billing.html" class="px-3 py-2 rounded-lg text-sm font-medium text-sky-600 bg-sky-50">Billing & Cashier</a>
+            </nav>
+            <div class="text-xs font-semibold text-slate-800">Dr. Sarah Jenkins</div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-4">
+                <h3 class="font-bold text-slate-900 border-b pb-3">New Transaction</h3>
+                <div><label class="block text-xs font-semibold uppercase text-slate-500 mb-1">Select Patient</label><select id="bill-patient" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm"></select></div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">Add Service / Item</label>
+                    <div class="flex gap-2">
+                        <select id="item-sel" class="flex-grow p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm">
+                            <option value="Consultation Fee|500">Consultation Fee - ₱500</option>
+                            <option value="Paracetamol 500mg (10s)|120">Paracetamol 10s - ₱120</option>
+                            <option value="Random Blood Sugar|350">Random Blood Sugar - ₱350</option>
+                            <option value="Medical Certificate|150">Medical Certificate - ₱150</option>
+                        </select>
+                        <button onclick="addItem()" class="bg-sky-500 text-white px-4 rounded-lg text-sm">Add</button>
+                    </div>
+                </div>
+                <hr>
+                <div class="flex justify-between font-bold text-lg"><span>Total:</span><span id="total-amt" class="text-sky-600">₱0.00</span></div>
+                <button onclick="pay()" class="w-full bg-emerald-600 text-white py-3 rounded-lg font-semibold">Process Payment</button>
+            </div>
+
+            <div class="lg:col-span-2 bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                <h3 class="font-bold text-slate-900 border-b pb-3 mb-4">Itemized Bill Summary</h3>
+                <table class="w-full text-left border-collapse">
+                    <thead><tr class="bg-slate-50 text-slate-500 text-xs uppercase"><th class="p-3">Description</th><th class="p-3 text-right">Price</th><th class="p-3 text-center">Action</th></tr></thead>
+                    <tbody id="bill-tbody" class="divide-y text-sm"><tr><td colspan="3" class="p-6 text-center text-slate-400">No items added.</td></tr></tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script src="storage.js"></script>
+    <script>
+        let billItems = [];
+        function initBill() {
+            document.getElementById('bill-patient').innerHTML = getPatients().map(p => `<option value="${p.name}">${p.name}</option>`).join('');
+            renderBill();
+        }
+        function addItem() {
+            const [desc, price] = document.getElementById('item-sel').value.split('|');
+            billItems.push({ desc, price: parseFloat(price) });
+            renderBill();
+        }
+        function renderBill() {
+            const tbody = document.getElementById('bill-tbody');
+            if(!billItems.length) { tbody.innerHTML = `<tr><td colspan="3" class="p-6 text-center text-slate-400">No items added.</td></tr>`; document.getElementById('total-amt').innerText='₱0.00'; return; }
+            let total = 0;
+            tbody.innerHTML = billItems.map((b, i) => {
+                total += b.price;
+                return `<tr class="hover:bg-slate-50"><td class="p-3">${b.desc}</td><td class="p-3 text-right font-semibold">₱${b.price.toFixed(2)}</td><td class="p-3 text-center"><button onclick="billItems.splice(${i},1);renderBill()" class="text-red-500">×</button></td></tr>`;
+            }).join('');
+            document.getElementById('total-amt').innerText = `₱${total.toFixed(2)}`;
+        }
+        function pay() {
+            if(!billItems.length) return alert('Add items first');
+            alert('Payment processed successfully!');
+            billItems = [];
+            renderBill();
+        }
+        initBill();
+    </script>
+</body>
+</html>
